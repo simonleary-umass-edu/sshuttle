@@ -66,21 +66,18 @@ def parse_file(filename, name):
             continue
         if not line_is_relevant:
             continue
-        try:
-            hostname = re.search(r'^(H|h)ost(N|n)ame\s+(.+)$', line).group(3)
+        search = re.search(r'^(H|h)ost(N|n)ame\s+(.+)$', line)
+        if search:
+            hostname = search.group(3)
             config["hostname"] = hostname
-        except AttributeError:
-            pass
-        try:
-            port = re.search(r'^(P|p)ort\s+(.+)$', line).group(2)
+        search = re.search(r'^(P|p)ort\s+(.+)$', line)
+        if search:
+            port = search.group(2)
             config["port"] = port
-        except AttributeError:
-            pass
-        try:
-            user = re.search(r'^(U|u)ser\s+(.+)$', line).group(2)
+        search = re.search(r'^(U|u)ser\s+(.+)$', line)
+        if search:
+            user = search.group(2)
             config["user"] = user
-        except AttributeError:
-            pass
         
     return config
 
